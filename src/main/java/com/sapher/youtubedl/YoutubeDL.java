@@ -1,15 +1,21 @@
 package com.sapher.youtubedl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sapher.youtubedl.mapper.VideoFormat;
+import com.sapher.youtubedl.mapper.VideoInfo;
+import com.sapher.youtubedl.mapper.VideoSubtitle;
+import com.sapher.youtubedl.mapper.VideoThumbnail;
 import com.sapher.youtubedl.utils.StreamGobbler;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class YoutubeDL {
     public static final String executableName = "youtube-dl";
 
-    public static String buildCommand(String command) {
+    private static String buildCommand(String command) {
         return String.format("%s %s", executableName, command);
     }
 
@@ -20,6 +26,7 @@ public class YoutubeDL {
         int exitCode;
         StringBuffer outBuffer = new StringBuffer();
         StringBuffer errBuffer = new StringBuffer();
+        long startTime = System.nanoTime();
 
         // TODO A nice place to break everything
         String[] split = command.split(" ");
@@ -50,7 +57,9 @@ public class YoutubeDL {
             throw new YoutubeDLException(e);
         }
 
-        youtubeDLResponse = new YoutubeDLResponse(command, directory, exitCode, outBuffer.toString(), errBuffer.toString());
+        int elapsedTime = (int) ((System.nanoTime() - startTime) / 1000000);
+
+        youtubeDLResponse = new YoutubeDLResponse(command, directory, exitCode , elapsedTime, outBuffer.toString(), errBuffer.toString());
 
         return youtubeDLResponse;
     }
@@ -59,4 +68,66 @@ public class YoutubeDL {
         String command = request.buildOptions();
         return execute(buildCommand(command), request.getDirectory());
     }
+
+    /**
+     * Retrieve all information available on a video
+     * @param url Video url
+     * @return Video info
+     * @throws YoutubeDLException
+     */
+    public static VideoInfo getVideoInfo(String url) throws YoutubeDLException  {
+
+        // Build request
+        YoutubeDLRequest request = new YoutubeDLRequest(url);
+        request.setDumpJson(true);
+        YoutubeDLResponse response = YoutubeDL.execute(request);
+
+        // Parse result
+        ObjectMapper objectMapper = new ObjectMapper();
+        VideoInfo videoInfo = null;
+
+        try {
+            videoInfo = objectMapper.readValue(response.getOut(), VideoInfo.class);
+        } catch (IOException e) {
+            throw new YoutubeDLException("Unable to parse video information: " + e.getMessage());
+        }
+
+        return videoInfo;
+    }
+
+    public static List<VideoFormat> getFormats(String url) throws YoutubeDLException {
+        VideoInfo info = getVideoInfo(url);
+        return info.formats;
+    }
+
+    public static List<VideoThumbnail> getThumbnails(String url) throws YoutubeDLException {
+        VideoInfo info = getVideoInfo(url);
+        return info.thumbnails;
+    }
+
+    public static List<String> getCategories(String url) throws YoutubeDLException {
+        VideoInfo info = getVideoInfo(url);
+        return info.categories;
+    }
+
+    public static List<String> getTags(String url) throws YoutubeDLException {
+        VideoInfo info = getVideoInfo(url);
+        return info.tags;
+    }
+
+    /**public static List<VideoSubtitle> getSubtitles(String url) throws YoutubeDLException {
+        VideoInfo info = getVideoInfo(url);
+        return info.subtitles;
+    }**/
+
+    /**public static void d(String url, String dir, String format, int quality, String output) throws YoutubeDLException {
+        YoutubeDLRequest request = new YoutubeDLRequest(dir, url);
+        request.setDirectory(dir);
+        request.setExtractAudio(true);
+        request.setFormat(format);
+        request.setAudioQuality(quality);
+        request.setOutput(output);
+
+        YoutubeDL.execute(request);
+    }**/
 }

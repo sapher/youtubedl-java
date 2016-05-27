@@ -90,7 +90,7 @@ public class YoutubeDLRequest {
     private Boolean noCacheDir;
     private Boolean rmCacheDir;
 
-    // Thumbnail Options
+    // VideoThumbnail Options
     private Boolean writeThumbnail;
     private Boolean writeAllThumbnails;
     private Boolean listThumbnails;
@@ -154,7 +154,31 @@ public class YoutubeDLRequest {
     private Boolean netRc;
     private String videoPassword;
 
+    // Postprocessing Options
+    private Boolean extractAudio;
+    private Integer audioFormat;
+    private Integer audioQuality;
+    private String recodeVideo;
+    private String postprocessorArgs;
+    private Boolean keepAudio;
+    private Boolean noPostOverwrites;
+    private Boolean embedSubs;
+    private Boolean embedThumbnail;
+    private Boolean addMetadata;
+    private Boolean metadataFromTitle;
+    private Boolean xattrs;
+    private String fixup;
+    private Boolean preferAvconv;
+    private Boolean preferFfmpeg;
+    private String ffmpegLocation;
+    private String exec;
+    private String convertSubs;
+
     public YoutubeDLRequest() {
+    }
+
+    public YoutubeDLRequest(String url) {
+        this.url = url;
     }
 
     public YoutubeDLRequest(String directory, String url) {
@@ -1168,6 +1192,150 @@ public class YoutubeDLRequest {
 
     public void setVideoPassword(String videoPassword) {
         this.videoPassword = videoPassword;
+    }
+
+    public Boolean getExtractAudio() {
+        return extractAudio;
+    }
+
+    public void setExtractAudio(Boolean extractAudio) {
+        this.extractAudio = extractAudio;
+    }
+
+    public Integer getAudioFormat() {
+        return audioFormat;
+    }
+
+    public void setAudioFormat(Integer audioFormat) {
+        this.audioFormat = audioFormat;
+    }
+
+    public Integer getAudioQuality() {
+        return audioQuality;
+    }
+
+    public void setAudioQuality(Integer audioQuality) {
+        this.audioQuality = audioQuality;
+    }
+
+    public String getRecodeVideo() {
+        return recodeVideo;
+    }
+
+    public void setRecodeVideo(String recodeVideo) {
+        this.recodeVideo = recodeVideo;
+    }
+
+    public String getPostprocessorArgs() {
+        return postprocessorArgs;
+    }
+
+    public void setPostprocessorArgs(String postprocessorArgs) {
+        this.postprocessorArgs = postprocessorArgs;
+    }
+
+    public Boolean getKeepAudio() {
+        return keepAudio;
+    }
+
+    public void setKeepAudio(Boolean keepAudio) {
+        this.keepAudio = keepAudio;
+    }
+
+    public Boolean getNoPostOverwrites() {
+        return noPostOverwrites;
+    }
+
+    public void setNoPostOverwrites(Boolean noPostOverwrites) {
+        this.noPostOverwrites = noPostOverwrites;
+    }
+
+    public Boolean getEmbedSubs() {
+        return embedSubs;
+    }
+
+    public void setEmbedSubs(Boolean embedSubs) {
+        this.embedSubs = embedSubs;
+    }
+
+    public Boolean getEmbedThumbnail() {
+        return embedThumbnail;
+    }
+
+    public void setEmbedThumbnail(Boolean embedThumbnail) {
+        this.embedThumbnail = embedThumbnail;
+    }
+
+    public Boolean getAddMetadata() {
+        return addMetadata;
+    }
+
+    public void setAddMetadata(Boolean addMetadata) {
+        this.addMetadata = addMetadata;
+    }
+
+    public Boolean getMetadataFromTitle() {
+        return metadataFromTitle;
+    }
+
+    public void setMetadataFromTitle(Boolean metadataFromTitle) {
+        this.metadataFromTitle = metadataFromTitle;
+    }
+
+    public Boolean getXattrs() {
+        return xattrs;
+    }
+
+    public void setXattrs(Boolean xattrs) {
+        this.xattrs = xattrs;
+    }
+
+    public String getFixup() {
+        return fixup;
+    }
+
+    public void setFixup(String fixup) {
+        this.fixup = fixup;
+    }
+
+    public Boolean getPreferAvconv() {
+        return preferAvconv;
+    }
+
+    public void setPreferAvconv(Boolean preferAvconv) {
+        this.preferAvconv = preferAvconv;
+    }
+
+    public Boolean getPreferFfmpeg() {
+        return preferFfmpeg;
+    }
+
+    public void setPreferFfmpeg(Boolean preferFfmpeg) {
+        this.preferFfmpeg = preferFfmpeg;
+    }
+
+    public String getFfmpegLocation() {
+        return ffmpegLocation;
+    }
+
+    public void setFfmpegLocation(String ffmpegLocation) {
+        this.ffmpegLocation = ffmpegLocation;
+    }
+
+    public String getExec() {
+        return exec;
+    }
+
+    public void setExec(String exec) {
+        this.exec = exec;
+    }
+
+    public String getConvertSubs() {
+        return convertSubs;
+    }
+
+    public void setConvertSubs(String convertSubs) {
+        this.convertSubs = convertSubs;
     }
 
     protected String buildOptions() {
