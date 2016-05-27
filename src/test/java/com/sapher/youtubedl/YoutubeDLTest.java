@@ -18,7 +18,7 @@ public class YoutubeDLTest {
     public void testGetVersion() throws YoutubeDLException {
 
         YoutubeDLRequest request = new YoutubeDLRequest();
-        request.setHelp(true);
+        request.setOption("help");
 
         Assert.assertNotNull(YoutubeDL.execute(request));
     }
@@ -28,7 +28,7 @@ public class YoutubeDLTest {
 
         YoutubeDLRequest request = new YoutubeDLRequest();
         request.setUrl(videoUrl);
-        request.setSimulate(true);
+        request.setOption("simulate");
 
         YoutubeDLResponse response = YoutubeDL.execute(request);
 
@@ -38,8 +38,8 @@ public class YoutubeDLTest {
     @Test
     public void testDirectory() throws YoutubeDLException {
 
-        YoutubeDLRequest request = new YoutubeDLRequest(directory, videoUrl);
-        request.setSimulate(true);
+        YoutubeDLRequest request = new YoutubeDLRequest(videoUrl, directory);
+        request.setOption("simulate");
 
         YoutubeDLResponse response = YoutubeDL.execute(request);
 

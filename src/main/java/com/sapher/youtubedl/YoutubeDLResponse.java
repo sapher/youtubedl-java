@@ -1,21 +1,21 @@
 package com.sapher.youtubedl;
 
-import java.util.List;
+
+import java.util.Map;
 
 public class YoutubeDLResponse {
 
+    private Map<String, String> options;
     private String command;
     private int exitCode;
     private String out;
     private String err;
-    /**private List<String> filePaths;
-    private List<String> thumbnailPaths;
-    private List<String> subtitlePaths;**/
     private String directory;
     private int elapsedTime;
 
-    public YoutubeDLResponse(String command, String directory, int exitCode, int elapsedTime, String out, String err) {
+    public YoutubeDLResponse(String command, Map<String, String> options, String directory, int exitCode, int elapsedTime, String out, String err) {
         this.command = command;
+        this.options = options;
         this.directory = directory;
         this.elapsedTime = elapsedTime;
         this.exitCode = exitCode;
@@ -39,9 +39,9 @@ public class YoutubeDLResponse {
         return err;
     }
 
-    /*public List<String> getFilePaths() {
-        return filePaths;
-    }*/
+    public Map<String, String> getOptions() {
+        return options;
+    }
 
     public String getDirectory() {
         return directory;

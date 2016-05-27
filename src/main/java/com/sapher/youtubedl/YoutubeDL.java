@@ -3,7 +3,6 @@ package com.sapher.youtubedl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sapher.youtubedl.mapper.VideoFormat;
 import com.sapher.youtubedl.mapper.VideoInfo;
-import com.sapher.youtubedl.mapper.VideoSubtitle;
 import com.sapher.youtubedl.mapper.VideoThumbnail;
 import com.sapher.youtubedl.utils.StreamGobbler;
 
@@ -11,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 public class YoutubeDL {
     public static final String executableName = "youtube-dl";
@@ -19,7 +19,11 @@ public class YoutubeDL {
         return String.format("%s %s", executableName, command);
     }
 
-    public static YoutubeDLResponse execute(String command, String directory) throws YoutubeDLException {
+    public static YoutubeDLResponse execute(YoutubeDLRequest request) throws YoutubeDLException {
+
+        String command = buildCommand(request.buildOptions());
+        String directory = request.getDirectory();
+        Map<String, String> options = request.getOption();
 
         YoutubeDLResponse youtubeDLResponse;
         Process process;
@@ -59,14 +63,9 @@ public class YoutubeDL {
 
         int elapsedTime = (int) ((System.nanoTime() - startTime) / 1000000);
 
-        youtubeDLResponse = new YoutubeDLResponse(command, directory, exitCode , elapsedTime, outBuffer.toString(), errBuffer.toString());
+        youtubeDLResponse = new YoutubeDLResponse(command, options, directory, exitCode , elapsedTime, outBuffer.toString(), errBuffer.toString());
 
         return youtubeDLResponse;
-    }
-
-    public static YoutubeDLResponse execute(YoutubeDLRequest request) throws YoutubeDLException {
-        String command = request.buildOptions();
-        return execute(buildCommand(command), request.getDirectory());
     }
 
     /**
@@ -79,7 +78,8 @@ public class YoutubeDL {
 
         // Build request
         YoutubeDLRequest request = new YoutubeDLRequest(url);
-        request.setDumpJson(true);
+        //request.setDumpJson(true);
+        request.setOption("dump-json");
         YoutubeDLResponse response = YoutubeDL.execute(request);
 
         // Parse result
@@ -121,7 +121,7 @@ public class YoutubeDL {
     }**/
 
     /**public static void d(String url, String dir, String format, int quality, String output) throws YoutubeDLException {
-        YoutubeDLRequest request = new YoutubeDLRequest(dir, url);
+        YoutubeDLRequest request = new YoutubeDLRequest(url, dir);
         request.setDirectory(dir);
         request.setExtractAudio(true);
         request.setFormat(format);
