@@ -9,6 +9,10 @@ import java.io.InputStream;
 public class YoutubeDL {
     public static final String executableName = "youtube-dl";
 
+    public static String buildCommand(String command) {
+        return String.format("%s %s", executableName, command);
+    }
+
     public static YoutubeDLResponse execute(String command, String directory) throws YoutubeDLException {
 
         YoutubeDLResponse youtubeDLResponse;
@@ -17,10 +21,8 @@ public class YoutubeDL {
         StringBuffer outBuffer = new StringBuffer();
         StringBuffer errBuffer = new StringBuffer();
 
-        String cmd = String.format("%s %s", executableName, command);
-
-        // TODO Fuck you
-        String[] split = cmd.split(" ");
+        // TODO A nice place to break everything
+        String[] split = command.split(" ");
 
         ProcessBuilder processBuilder = new ProcessBuilder(split);
 
@@ -48,17 +50,13 @@ public class YoutubeDL {
             throw new YoutubeDLException(e);
         }
 
-        youtubeDLResponse = new YoutubeDLResponse(command, exitCode, outBuffer.toString(), errBuffer.toString());
+        youtubeDLResponse = new YoutubeDLResponse(command, directory, exitCode, outBuffer.toString(), errBuffer.toString());
 
         return youtubeDLResponse;
     }
 
-    public static YoutubeDLResponse execute(String command) throws YoutubeDLException {
-        return execute(command, null);
-    }
-
     public static YoutubeDLResponse execute(YoutubeDLRequest request) throws YoutubeDLException {
-        String command = request.buildCommandString();
-        return execute(command, request.getDirectory());
+        String command = request.buildOptions();
+        return execute(buildCommand(command), request.getDirectory());
     }
 }
