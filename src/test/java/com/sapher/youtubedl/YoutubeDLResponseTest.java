@@ -1,12 +1,12 @@
 package com.sapher.youtubedl;
 
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
 
-public class TestTest {
+public class YoutubeDLResponseTest {
 
     @Test
     public void testTest() {
-        Assert.assertTrue(1 == 1);
+        Assert.assertEquals(true, true);
     }
 }
