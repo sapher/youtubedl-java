@@ -6,7 +6,24 @@
 
     <groupId>com.sapher</groupId>
     <artifactId>youtubedl</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>YoutubeDL wrapper</name>
+    <description>Java wrapper for youtube-dl executable</description>
+    <url>https://github.com/sapher/youtubedl-java</url>
+
+    <licenses>
+        <license>
+            <name>WTFPL 2.0</name>
+            <url>http://www.wtfpl.net/txt/copying/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/sapher/youtubedl-java</url>
+    </scm>
 
     <properties>
         <jackson.version>2.7.4</jackson.version>
