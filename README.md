@@ -1,77 +1,34 @@
 # youtubedl-java [![Build Status](https://travis-ci.org/sapher/youtubedl-java.svg?branch=master)](https://travis-ci.org/sapher/youtubedl-java)
 
-
-Just a simple WIP java wrapper for youtubedl
-
-#Table of contents
-
-- [Prerequisite](#prerequisite)
-- [Usage](#usage)
-- [Links](#links)
+A simple java wrapper for [youtube-dl](https://github.com/rg3/youtube-dl) executable
 
 # Prerequisite
-You need `youtube-dl` to be installed and available. You can follow [those instructions](https://github.com/rg3/youtube-dl/blob/master/README.md#installation) to install `youtube-dl`
+
+Youtube-dl should be installed and available.
 
 # Usage
 
-YoutubeDL wrapper is compose of 3 main class : `YoutubeDL`, `YoutubeDLRequest`, `YoutubeDLResponse`.
 
-## YoutubeDL
-Static class that execute a request and return a response.
-
-### Execute a command
-
-```
-YoutubeDL.execute('--version');
-```
-
-### Execute a request
-
-```
-YoutubeDLRequest request = new YoutubeDLRequest();
-YoutubeDL.execute(request);
-```
-
-## YoutubeDLRequest
-Represent a command for youtube-dl to execute.
-You can **set** and **get** all options handle by youtube-dl : [YoutubeDL Options](https://github.com/rg3/youtube-dl/blob/master/README.md#options).
-Don't use those deprecated (you can but.. don't).
-
-```
-// Example to set / get rate limit
-request.setRateLimit(1024);
-request.getRateLimit();
-```
-
-## YoutubeDLResponse
-Represent the result of a request.
-
-This object is composed of:
-
-* **exitCode** Exit code of youtube-dl programm
-*  **err** String from stderr
-*  **out** String from stdout
-*  **directory** Directory where the programme has been launched
-* *more useful to come...*
-
-## Custom request
-
-You can use `YoutubeDLRequest` object to build any  command you want.
+## Make request
 
 ```java
-// Download a video
-YoutubeDLRequest request = new YoutubeDLRequest();
-request.setUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-request.setDirectory("/Users/johndoe/Desktop");
+// Video url to download
+String videoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
+// Destination directory
+String directory = System.getProperty("user.home");
+
+// Build request
+YoutubeDLRequest request = new YoutubeDLRequest(videoUrl, directory);
+request.setOption("ignore-errors");		// --ignore-errors
+request.setOption("output", "%(id)s");	// --output "%(id)s"
+request.setOption("retries", 10);		// --retries 10
+
+// Make request and return response
 YoutubeDLResponse response = YoutubeDL.execute(request);
 
-// will result to youtube-dl https://www.youtube.com/watch?v=dQw4w9WgXcQ
+// Response
+String stdOut = response.getOut(); // Executable output
 ```
-
-Be care, you can build a nonsensical command.
-
 # Links
-
-[YoutubeDL Documentation](https://github.com/rg3/youtube-dl/blob/master/README.md#installation)
-
-**[Back to top](#table-of-contents)**
+* [Youtube-dl documentation](https://github.com/sapher/youtubedl-java)

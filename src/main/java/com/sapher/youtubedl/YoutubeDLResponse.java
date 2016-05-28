@@ -1,8 +1,10 @@
 package com.sapher.youtubedl;
 
-
 import java.util.Map;
 
+/**
+ * YoutubeDL response
+ */
 public class YoutubeDLResponse {
 
     private Map<String, String> options;

@@ -2,11 +2,24 @@ package com.sapher.youtubedl;
 
 import java.util.*;
 
+/**
+ * YoutubeDL request
+ */
 public class YoutubeDLRequest {
 
+    /**
+     * Executable working directory
+     */
     private String directory;
+
+    /**
+     * Video Url
+     */
     private String url;
 
+    /**
+     * List of executable options
+     */
     private Map<String, String> options = new HashMap<String, String>();
 
     public String getDirectory() {
@@ -41,19 +54,35 @@ public class YoutubeDLRequest {
         options.put(key, String.valueOf(value));
     }
 
+    /**
+     * Constructor
+     */
     public YoutubeDLRequest() {
 
     }
 
+    /**
+     * Construct a request with a videoUrl
+     * @param url
+     */
     public YoutubeDLRequest(String url) {
         this.url = url;
     }
 
+    /**
+     * Construct a request with a videoUrl and working directory
+     * @param url
+     * @param directory
+     */
     public YoutubeDLRequest(String url, String directory) {
         this.url = url;
         this.directory = directory;
     }
 
+    /**
+     * Transform options to a string that the executable will execute
+     * @return Command string
+     */
     protected String buildOptions() {
 
         StringBuilder builder = new StringBuilder();

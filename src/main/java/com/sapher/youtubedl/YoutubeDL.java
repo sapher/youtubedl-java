@@ -12,24 +12,32 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p>Provide an interface for youtube-dl executable</p>
+ *
+ * <p>
+ *     For more information on youtube-dl, please see
+ *     <a href="https://github.com/rg3/youtube-dl/blob/master/README.md">YoutubeDL Documentation</a>
+ * </p>
+ */
 public class YoutubeDL {
 
     /**
      * Youtube-dl executable name
      */
-    public static final String executableName = "youtube-dl";
+    protected static final String executableName = "youtube-dl";
 
     /**
      * Append executable name to command
      * @param command Command string
      * @return Command string
      */
-    private static String buildCommand(String command) {
+    protected static String buildCommand(String command) {
         return String.format("%s %s", executableName, command);
     }
 
     /**
-     * Execute youtube-dl command
+     * Execute youtube-dl request
      * @param request request object
      * @return response object
      * @throws YoutubeDLException
@@ -113,7 +121,7 @@ public class YoutubeDL {
         // Build request
         YoutubeDLRequest request = new YoutubeDLRequest(url);
         request.setOption("dump-json");
-        //request.setOption("no-playlist");
+        request.setOption("no-playlist");
         YoutubeDLResponse response = YoutubeDL.execute(request);
 
         // Parse result
@@ -171,32 +179,5 @@ public class YoutubeDL {
     public static List<String> getTags(String url) throws YoutubeDLException {
         VideoInfo info = getVideoInfo(url);
         return info.tags;
-    }
-
-    /**public static List<VideoSubtitle> getSubtitles(String url) throws YoutubeDLException {
-        VideoInfo info = getVideoInfo(url);
-        return info.subtitles;
-    }**/
-
-    /**
-     * Download audio of a video
-     * @param url Video Url
-     * @param dir Destination directory
-     * @param format Audio format
-     * @param quality Audio quality
-     * @param output Output filename template
-     * @throws YoutubeDLException
-     */
-    public static YoutubeDLResponse downloadAudio(String url, String dir, String format, int quality, String output) throws YoutubeDLException {
-
-        YoutubeDLRequest request = new YoutubeDLRequest(url, dir);
-        //request.setDirectory(dir);
-        request.setOption("no-playlist");
-        //request.setOption("extract-audio");
-        request.setOption("format", format);
-        request.setOption("audio-quality", quality);
-        request.setOption("output", output);
-
-        return YoutubeDL.execute(request);
     }
 }

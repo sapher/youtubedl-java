@@ -10,8 +10,8 @@ import java.util.List;
 
 public class YoutubeDLTest {
 
-    private final String directory = System.getProperty("user.home");
-    //private final String directory = System.getProperty("java.io.tmpdir");
+    //private final String directory = System.getProperty("user.home");
+    private final String directory = System.getProperty("java.io.tmpdir");
     private final String videoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
     @Test
@@ -90,16 +90,4 @@ public class YoutubeDLTest {
         Assert.assertNotNull(categories);
         Assert.assertTrue(categories.size() > 0);
     }
-
-    /**@Test
-    public void testDownloadAudio() throws YoutubeDLException {
-        YoutubeDLResponse response = YoutubeDL.downloadAudio(videoUrl, directory, "17", 0, "%(id)s");
-    }**/
-
-    /**@Test
-    public void testGetSubtitles() throws YoutubeDLException {
-        List<VideoSubtitle> subtitles = YoutubeDL.getSubtitles(videoUrl);
-        Assert.assertNotNull(subtitles);
-        Assert.assertTrue(subtitles.size() > 0);
-    }**/
 }
