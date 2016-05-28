@@ -35,6 +35,7 @@ YoutubeDL.execute(request);
 ## YoutubeDLRequest
 Represent a command for youtube-dl to execute.
 You can **set** and **get** all options handle by youtube-dl : [YoutubeDL Options](https://github.com/rg3/youtube-dl/blob/master/README.md#options).
+Don't use those deprecated (you can but.. don't).
 
 ```
 // Example to set / get rate limit

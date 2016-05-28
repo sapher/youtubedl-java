@@ -1,6 +1,5 @@
 package com.sapher.youtubedl;
 
-import java.lang.reflect.Field;
 import java.util.*;
 
 public class YoutubeDLRequest {
@@ -38,6 +37,10 @@ public class YoutubeDLRequest {
         options.put(key, value);
     }
 
+    public void setOption(String key, int value) {
+        options.put(key, String.valueOf(value));
+    }
+
     public YoutubeDLRequest() {
 
     }
@@ -70,11 +73,11 @@ public class YoutubeDLRequest {
             if(value == null) value = "";
 
             String optionFormatted = String.format("--%s %s", name, value).trim();
-            builder.append(optionFormatted);
+            builder.append(optionFormatted + " ");
 
             it.remove();
         }
 
-        return builder.toString();
+        return builder.toString().trim();
     }
 }

@@ -13,12 +13,27 @@ import java.util.List;
 import java.util.Map;
 
 public class YoutubeDL {
+
+    /**
+     * Youtube-dl executable name
+     */
     public static final String executableName = "youtube-dl";
 
+    /**
+     * Append executable name to command
+     * @param command Command string
+     * @return Command string
+     */
     private static String buildCommand(String command) {
         return String.format("%s %s", executableName, command);
     }
 
+    /**
+     * Execute youtube-dl command
+     * @param request request object
+     * @return response object
+     * @throws YoutubeDLException
+     */
     public static YoutubeDLResponse execute(YoutubeDLRequest request) throws YoutubeDLException {
 
         String command = buildCommand(request.buildOptions());
@@ -61,11 +76,30 @@ public class YoutubeDL {
             throw new YoutubeDLException(e);
         }
 
+        String out = outBuffer.toString();
+        String err = errBuffer.toString();
+
+        if(exitCode > 0) {
+            throw new YoutubeDLException(err);
+        }
+
         int elapsedTime = (int) ((System.nanoTime() - startTime) / 1000000);
 
-        youtubeDLResponse = new YoutubeDLResponse(command, options, directory, exitCode , elapsedTime, outBuffer.toString(), errBuffer.toString());
+        youtubeDLResponse = new YoutubeDLResponse(command, options, directory, exitCode , elapsedTime, out, err);
 
         return youtubeDLResponse;
+    }
+
+
+    /**
+     * Get youtube-dl executable version
+     * @return version string
+     * @throws YoutubeDLException
+     */
+    public static String getVersion() throws YoutubeDLException {
+        YoutubeDLRequest request = new YoutubeDLRequest();
+        request.setOption("version");
+        return YoutubeDL.execute(request).getOut();
     }
 
     /**
@@ -78,8 +112,8 @@ public class YoutubeDL {
 
         // Build request
         YoutubeDLRequest request = new YoutubeDLRequest(url);
-        //request.setDumpJson(true);
         request.setOption("dump-json");
+        //request.setOption("no-playlist");
         YoutubeDLResponse response = YoutubeDL.execute(request);
 
         // Parse result
@@ -95,21 +129,45 @@ public class YoutubeDL {
         return videoInfo;
     }
 
+    /**
+     * List formats
+     * @param url Video url
+     * @return list of formats
+     * @throws YoutubeDLException
+     */
     public static List<VideoFormat> getFormats(String url) throws YoutubeDLException {
         VideoInfo info = getVideoInfo(url);
         return info.formats;
     }
 
+    /**
+     * List thumbnails
+     * @param url Video url
+     * @return list of thumbnail
+     * @throws YoutubeDLException
+     */
     public static List<VideoThumbnail> getThumbnails(String url) throws YoutubeDLException {
         VideoInfo info = getVideoInfo(url);
         return info.thumbnails;
     }
 
+    /**
+     * List categories
+     * @param url Video url
+     * @return list of category
+     * @throws YoutubeDLException
+     */
     public static List<String> getCategories(String url) throws YoutubeDLException {
         VideoInfo info = getVideoInfo(url);
         return info.categories;
     }
 
+    /**
+     * List tags
+     * @param url Video url
+     * @return list of tag
+     * @throws YoutubeDLException
+     */
     public static List<String> getTags(String url) throws YoutubeDLException {
         VideoInfo info = getVideoInfo(url);
         return info.tags;
@@ -120,14 +178,25 @@ public class YoutubeDL {
         return info.subtitles;
     }**/
 
-    /**public static void d(String url, String dir, String format, int quality, String output) throws YoutubeDLException {
-        YoutubeDLRequest request = new YoutubeDLRequest(url, dir);
-        request.setDirectory(dir);
-        request.setExtractAudio(true);
-        request.setFormat(format);
-        request.setAudioQuality(quality);
-        request.setOutput(output);
+    /**
+     * Download audio of a video
+     * @param url Video Url
+     * @param dir Destination directory
+     * @param format Audio format
+     * @param quality Audio quality
+     * @param output Output filename template
+     * @throws YoutubeDLException
+     */
+    public static YoutubeDLResponse downloadAudio(String url, String dir, String format, int quality, String output) throws YoutubeDLException {
 
-        YoutubeDL.execute(request);
-    }**/
+        YoutubeDLRequest request = new YoutubeDLRequest(url, dir);
+        //request.setDirectory(dir);
+        request.setOption("no-playlist");
+        //request.setOption("extract-audio");
+        request.setOption("format", format);
+        request.setOption("audio-quality", quality);
+        request.setOption("output", output);
+
+        return YoutubeDL.execute(request);
+    }
 }

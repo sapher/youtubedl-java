@@ -2,7 +2,6 @@ package com.sapher.youtubedl;
 
 import com.sapher.youtubedl.mapper.VideoFormat;
 import com.sapher.youtubedl.mapper.VideoInfo;
-import com.sapher.youtubedl.mapper.VideoSubtitle;
 import com.sapher.youtubedl.mapper.VideoThumbnail;
 import org.junit.Test;
 import org.junit.Assert;
@@ -12,16 +11,28 @@ import java.util.List;
 public class YoutubeDLTest {
 
     private final String directory = System.getProperty("user.home");
-    private final String videoUrl = "https://www.youtube.com/watch?v=9ka5bgHnHyg";
+    //private final String directory = System.getProperty("java.io.tmpdir");
+    private final String videoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
     @Test
     public void testGetVersion() throws YoutubeDLException {
+        Assert.assertNotNull(YoutubeDL.getVersion());
+    }
+
+    @Test
+    public void testElapsedTime() throws YoutubeDLException {
+
+        long startTime = System.nanoTime();
 
         YoutubeDLRequest request = new YoutubeDLRequest();
-        request.setOption("help");
+        request.setOption("version");
+        YoutubeDLResponse response = YoutubeDL.execute(request);
 
-        Assert.assertNotNull(YoutubeDL.execute(request));
+        int elapsedTime = (int) (System.nanoTime() - startTime);
+
+        Assert.assertTrue(elapsedTime > response.getElapsedTime());
     }
+
 
     @Test
     public void testSimulateDownload() throws YoutubeDLException {
@@ -32,7 +43,7 @@ public class YoutubeDLTest {
 
         YoutubeDLResponse response = YoutubeDL.execute(request);
 
-        Assert.assertEquals("youtube-dl https://www.youtube.com/watch?v=9ka5bgHnHyg --simulate", response.getCommand());
+        Assert.assertEquals("youtube-dl " + videoUrl + " --simulate", response.getCommand());
     }
 
     @Test
@@ -81,8 +92,8 @@ public class YoutubeDLTest {
     }
 
     /**@Test
-    public void testD() throws YoutubeDLException {
-        YoutubeDLResponse response = YoutubeDL.d(videoUrl, directory, 151);
+    public void testDownloadAudio() throws YoutubeDLException {
+        YoutubeDLResponse response = YoutubeDL.downloadAudio(videoUrl, directory, "17", 0, "%(id)s");
     }**/
 
     /**@Test
