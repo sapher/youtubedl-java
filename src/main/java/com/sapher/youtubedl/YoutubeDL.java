@@ -25,7 +25,7 @@ public class YoutubeDL {
     /**
      * Youtube-dl executable name
      */
-    protected static final String executableName = "youtube-dl";
+    protected static String executablePath = "youtube-dl";
 
     /**
      * Append executable name to command
@@ -33,7 +33,7 @@ public class YoutubeDL {
      * @return Command string
      */
     protected static String buildCommand(String command) {
-        return String.format("%s %s", executableName, command);
+        return String.format("%s %s", executablePath, command);
     }
 
     /**
@@ -179,5 +179,23 @@ public class YoutubeDL {
     public static List<String> getTags(String url) throws YoutubeDLException {
         VideoInfo info = getVideoInfo(url);
         return info.tags;
+    }
+
+    /**
+     * Get command executable or path to the executable
+     * @return path string
+     * @throws YoutubeDLException
+     */
+    public static String getExecutablePath(){
+        return executablePath;
+    }
+
+    /**
+     * Set path to use for the command
+     * @param path String path to the executable
+     * @throws YoutubeDLException
+     */
+    public static void setExecutablePath(String path){
+        executablePath = path;
     }
 }

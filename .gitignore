@@ -13,3 +13,6 @@ hs_err_pid*
 
 .idea
 *.iml
+
+# No target build for github
+target/
