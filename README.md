@@ -8,6 +8,11 @@ Youtube-dl should be installed and available.
 
 # Usage
 
+## Installation
+
+You can use jitpack.io to add the library to your project.
+
+[youtube-dl](https://jitpack.io/#sapher/youtubedl-java)
 
 ## Make request
 
