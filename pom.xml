@@ -26,6 +26,7 @@
     </scm>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jackson.version>2.7.4</jackson.version>
     </properties>
 

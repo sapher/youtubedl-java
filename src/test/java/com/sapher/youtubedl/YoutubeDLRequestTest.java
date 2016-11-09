@@ -30,6 +30,6 @@ public class YoutubeDLRequestTest {
         request.setOption("password", "1234");
         request.setOption("username", "1234");
 
-        Assert.assertEquals("--username 1234 --password 1234", request.buildOptions());
+        Assert.assertEquals("--password 1234 --username 1234", request.buildOptions());
     }
 }
