@@ -2,6 +2,8 @@
 
 A simple java wrapper for [youtube-dl](https://github.com/rg3/youtube-dl) executable
 
+There's a lot of thing left to do. Parsing output is one of them. Too bad, youtube-dl output unform
+
 # Prerequisite
 
 Youtube-dl should be installed and available.
