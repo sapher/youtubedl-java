@@ -13,12 +13,13 @@ public class YoutubeDLTest {
     //private final String directory = System.getProperty("user.home");
     private final String directory = System.getProperty("java.io.tmpdir");
     private final String videoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    private final String noneExistantvideoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcZ";
 
-    @Test
+    /**@Test
     public void testUsingOwnExecutablePath() throws YoutubeDLException {
         YoutubeDL.setExecutablePath("/usr/bin/youtube-dl");
         Assert.assertNotNull(YoutubeDL.getVersion());
-    }
+    }**/
 
     @Test
     public void testGetVersion() throws YoutubeDLException {
@@ -95,5 +96,10 @@ public class YoutubeDLTest {
         List<String> categories = YoutubeDL.getCategories(videoUrl);
         Assert.assertNotNull(categories);
         Assert.assertTrue(categories.size() > 0);
+    }
+
+    @Test(expected = YoutubeDLException.class)
+    public void testFailGetNonExistantVideoInfo() throws YoutubeDLException {
+        YoutubeDL.getVideoInfo(noneExistantvideoUrl);
     }
 }

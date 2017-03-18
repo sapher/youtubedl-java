@@ -16,3 +16,7 @@ hs_err_pid*
 
 # No target build for github
 target/
+
+# Gradle
+.gradle
+gradle
