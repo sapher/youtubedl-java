@@ -15,6 +15,12 @@ public class YoutubeDLTest {
     private final String videoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
     @Test
+    public void testUsingOwnExecutablePath() throws YoutubeDLException {
+        YoutubeDL.setExecutablePath("/usr/bin/youtube-dl");
+        Assert.assertNotNull(YoutubeDL.getVersion());
+    }
+
+    @Test
     public void testGetVersion() throws YoutubeDLException {
         Assert.assertNotNull(YoutubeDL.getVersion());
     }

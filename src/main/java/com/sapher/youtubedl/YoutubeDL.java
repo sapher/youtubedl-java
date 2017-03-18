@@ -51,11 +51,10 @@ public class YoutubeDL {
         YoutubeDLResponse youtubeDLResponse;
         Process process;
         int exitCode;
-        StringBuffer outBuffer = new StringBuffer();
-        StringBuffer errBuffer = new StringBuffer();
+        StringBuffer outBuffer = new StringBuffer(); //stdout
+        StringBuffer errBuffer = new StringBuffer(); //stderr
         long startTime = System.nanoTime();
 
-        // TODO A nice place to break everything
         String[] split = command.split(" ");
 
         ProcessBuilder processBuilder = new ProcessBuilder(split);
@@ -184,7 +183,6 @@ public class YoutubeDL {
     /**
      * Get command executable or path to the executable
      * @return path string
-     * @throws YoutubeDLException
      */
     public static String getExecutablePath(){
         return executablePath;
@@ -193,7 +191,6 @@ public class YoutubeDL {
     /**
      * Set path to use for the command
      * @param path String path to the executable
-     * @throws YoutubeDLException
      */
     public static void setExecutablePath(String path){
         executablePath = path;
