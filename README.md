@@ -6,7 +6,13 @@ There's a lot of thing left to do. Parsing output is one of them. Too bad, youtu
 
 # Prerequisite
 
-Youtube-dl should be installed and available.
+:warning: Youtube-dl should be installed and available in your `$PATH.
+
+[How to properly install YoutubeDL executable](https://rg3.github.io/youtube-dl/download.html)
+
+Otherwise you will get this error :
+
+`Cannot run program "youtube-dl" (in directory "/Users/my/beautiful/path"): error=2, No such file or directory`
 
 # Usage
 
@@ -35,8 +41,6 @@ dependencies {
     compile 'com.github.sapher:youtubedl-java:1.+'
 }
 ```
-
-### Maven
 
 ## Make request
 
