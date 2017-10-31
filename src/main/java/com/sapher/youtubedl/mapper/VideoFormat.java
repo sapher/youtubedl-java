@@ -20,7 +20,7 @@ public class VideoFormat {
     public String acodec;
     public int width;
     public int height;
-    public int filesize;
+    public long filesize;
     public int fps;
     public String url;
 }
