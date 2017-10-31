@@ -63,5 +63,17 @@ YoutubeDLResponse response = YoutubeDL.execute(request);
 // Response
 String stdOut = response.getOut(); // Executable output
 ```
+
+You may also specify a callback to get notified about the progress of the download:
+
+```
+...
+YoutubeDLResponse response = YoutubeDL.execute(request, new DownloadProgressCallback() {
+          @Override
+          public void onProgressUpdate(float progress, long etaInSeconds) {
+              System.out.println(String.valueOf(progress) + "%");
+          }
+      });
+```
 # Links
 * [Youtube-dl documentation](https://github.com/sapher/youtubedl-java)
