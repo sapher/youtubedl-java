@@ -10,10 +10,9 @@ import java.util.List;
 
 public class YoutubeDLTest {
 
-    //private final String directory = System.getProperty("user.home");
-    private final String directory = System.getProperty("java.io.tmpdir");
-    private final String videoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-    private final String noneExistantvideoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcZ";
+    private final static String DIRECTORY = System.getProperty("java.io.tmpdir");
+    private final static String VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    private final static String NONE_EXISTENT_VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcZ";
 
     /**@Test
     public void testUsingOwnExecutablePath() throws YoutubeDLException {
@@ -45,61 +44,61 @@ public class YoutubeDLTest {
     public void testSimulateDownload() throws YoutubeDLException {
 
         YoutubeDLRequest request = new YoutubeDLRequest();
-        request.setUrl(videoUrl);
+        request.setUrl(VIDEO_URL);
         request.setOption("simulate");
 
         YoutubeDLResponse response = YoutubeDL.execute(request);
 
-        Assert.assertEquals("youtube-dl " + videoUrl + " --simulate", response.getCommand());
+        Assert.assertEquals("youtube-dl " + VIDEO_URL + " --simulate", response.getCommand());
     }
 
     @Test
     public void testDirectory() throws YoutubeDLException {
 
-        YoutubeDLRequest request = new YoutubeDLRequest(videoUrl, directory);
+        YoutubeDLRequest request = new YoutubeDLRequest(VIDEO_URL, DIRECTORY);
         request.setOption("simulate");
 
         YoutubeDLResponse response = YoutubeDL.execute(request);
 
-        Assert.assertEquals(directory, response.getDirectory());
+        Assert.assertEquals(DIRECTORY, response.getDirectory());
     }
 
     @Test
     public void testGetVideoInfo() throws YoutubeDLException {
-        VideoInfo videoInfo = YoutubeDL.getVideoInfo(videoUrl);
+        VideoInfo videoInfo = YoutubeDL.getVideoInfo(VIDEO_URL);
         Assert.assertNotNull(videoInfo);
     }
 
     @Test
     public void testGetFormats() throws YoutubeDLException {
-        List<VideoFormat> formats = YoutubeDL.getFormats(videoUrl);
+        List<VideoFormat> formats = YoutubeDL.getFormats(VIDEO_URL);
         Assert.assertNotNull(formats);
         Assert.assertTrue(formats.size() > 0);
     }
 
     @Test
     public void testGetThumbnails() throws YoutubeDLException {
-        List<VideoThumbnail> thumbnails = YoutubeDL.getThumbnails(videoUrl);
+        List<VideoThumbnail> thumbnails = YoutubeDL.getThumbnails(VIDEO_URL);
         Assert.assertNotNull(thumbnails);
         Assert.assertTrue(thumbnails.size() > 0);
     }
 
     @Test
     public void testGetTags() throws YoutubeDLException {
-        List<String> tags = YoutubeDL.getTags(videoUrl);
+        List<String> tags = YoutubeDL.getTags(VIDEO_URL);
         Assert.assertNotNull(tags);
         Assert.assertTrue(tags.size() > 0);
     }
 
     @Test
     public void testGetCategories() throws YoutubeDLException {
-        List<String> categories = YoutubeDL.getCategories(videoUrl);
+        List<String> categories = YoutubeDL.getCategories(VIDEO_URL);
         Assert.assertNotNull(categories);
         Assert.assertTrue(categories.size() > 0);
     }
 
     @Test(expected = YoutubeDLException.class)
-    public void testFailGetNonExistantVideoInfo() throws YoutubeDLException {
-        YoutubeDL.getVideoInfo(noneExistantvideoUrl);
+    public void testFailGetNonExistentVideoInfo() throws YoutubeDLException {
+        YoutubeDL.getVideoInfo(NONE_EXISTENT_VIDEO_URL);
     }
 }
