@@ -5,6 +5,7 @@ import com.sapher.youtubedl.mapper.VideoFormat;
 import com.sapher.youtubedl.mapper.VideoInfo;
 import com.sapher.youtubedl.mapper.VideoThumbnail;
 import com.sapher.youtubedl.utils.StreamGobbler;
+import com.sapher.youtubedl.utils.StreamProcessExtractor;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +44,17 @@ public class YoutubeDL {
      * @throws YoutubeDLException
      */
     public static YoutubeDLResponse execute(YoutubeDLRequest request) throws YoutubeDLException {
+        return execute(request, null);
+    }
+
+    /**
+     * Execute youtube-dl request
+     * @param request request object
+     * @param callback callback
+     * @return response object
+     * @throws YoutubeDLException
+     */
+    public static YoutubeDLResponse execute(YoutubeDLRequest request, DownloadProgressCallback callback) throws YoutubeDLException {
 
         String command = buildCommand(request.buildOptions());
         String directory = request.getDirectory();
@@ -72,10 +84,12 @@ public class YoutubeDL {
         InputStream outStream = process.getInputStream();
         InputStream errStream = process.getErrorStream();
 
-        new StreamGobbler(outBuffer, outStream);
-        new StreamGobbler(errBuffer, errStream);
+        StreamProcessExtractor stdOutProcessor = new StreamProcessExtractor(outBuffer, outStream, callback);
+        StreamGobbler stdErrProcessor = new StreamGobbler(errBuffer, errStream);
 
         try {
+            stdOutProcessor.join();
+            stdErrProcessor.join();
             exitCode = process.waitFor();
         } catch (InterruptedException e) {
 
@@ -125,7 +139,7 @@ public class YoutubeDL {
 
         // Parse result
         ObjectMapper objectMapper = new ObjectMapper();
-        VideoInfo videoInfo = null;
+        VideoInfo videoInfo;
 
         try {
             videoInfo = objectMapper.readValue(response.getOut(), VideoInfo.class);
