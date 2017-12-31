@@ -1,6 +1,7 @@
 package com.sapher.youtubedl.utils;
 
-import com.sapher.youtubedl.DownloadProgressCallback;
+import com.sapher.youtubedl.callback.DownloadProgressCallback;
+import com.sapher.youtubedl.callback.OutputCallback;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,14 +21,18 @@ public class StreamProcessExtractor extends Thread {
     private BufferedReader streamReader;
     private StringBuffer buffer;
     private final DownloadProgressCallback callback;
+    private final OutputCallback outputCallback;
 
     private Pattern p = Pattern.compile("\\[download\\]\\s+(?<percent>\\d+\\.\\d)% .* ETA (?<minutes>\\d+):(?<seconds>\\d+)");
     private Pattern p2 = Pattern.compile("\\[download\\]\\s+Downloading\\s+video\\s+(?<videoNumber>\\d+)\\s+of\\s+(?<videoCount>\\d+)");
 
-    public StreamProcessExtractor(StringBuffer buffer, InputStream stream, DownloadProgressCallback callback) {
+    public StreamProcessExtractor(StringBuffer buffer, InputStream stream,
+                                  OutputCallback outputCallback, DownloadProgressCallback callback) {
         this.streamReader = new BufferedReader(new InputStreamReader(stream));
         this.buffer = buffer;
         this.callback = callback;
+        this.outputCallback = outputCallback;
+
         this.start();
     }
 
@@ -37,6 +42,10 @@ public class StreamProcessExtractor extends Thread {
 
             while((tmp = streamReader.readLine()) != null){
                 buffer.append(tmp);
+
+                if(outputCallback != null){
+                    outputCallback.onStdOutLine(tmp);
+                }
 
                 if(callback != null){
                     processOutputLine(tmp);

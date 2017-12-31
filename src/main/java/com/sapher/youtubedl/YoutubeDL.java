@@ -1,6 +1,8 @@
 package com.sapher.youtubedl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sapher.youtubedl.callback.DownloadProgressCallback;
+import com.sapher.youtubedl.callback.OutputCallback;
 import com.sapher.youtubedl.mapper.VideoFormat;
 import com.sapher.youtubedl.mapper.VideoInfo;
 import com.sapher.youtubedl.mapper.VideoThumbnail;
@@ -44,17 +46,41 @@ public class YoutubeDL {
      * @throws YoutubeDLException
      */
     public static YoutubeDLResponse execute(YoutubeDLRequest request) throws YoutubeDLException {
-        return execute(request, null);
+        return execute(request, null, null);
     }
 
     /**
      * Execute youtube-dl request
      * @param request request object
-     * @param callback callback
+     * @param callback Progresscallback
      * @return response object
      * @throws YoutubeDLException
      */
     public static YoutubeDLResponse execute(YoutubeDLRequest request, DownloadProgressCallback callback) throws YoutubeDLException {
+        return execute(request, null, callback);
+    }
+
+    /**
+     * Execute youtube-dl request
+     * @param request request object
+     * @param outputCallback Outputcallback
+     * @return response object
+     * @throws YoutubeDLException
+     */
+    public static YoutubeDLResponse execute(YoutubeDLRequest request, OutputCallback outputCallback) throws YoutubeDLException {
+        return execute(request, outputCallback, null);
+    }
+
+    /**
+     * Execute youtube-dl request
+     * @param request request object
+     * @param outputCallback The outputcallback
+     * @param callback callback
+     * @return response object
+     * @throws YoutubeDLException
+     */
+    public static YoutubeDLResponse execute(YoutubeDLRequest request, OutputCallback outputCallback,
+                                            DownloadProgressCallback callback) throws YoutubeDLException {
 
         String command = buildCommand(request.buildOptions());
         String directory = request.getDirectory();
@@ -84,8 +110,8 @@ public class YoutubeDL {
         InputStream outStream = process.getInputStream();
         InputStream errStream = process.getErrorStream();
 
-        StreamProcessExtractor stdOutProcessor = new StreamProcessExtractor(outBuffer, outStream, callback);
-        StreamGobbler stdErrProcessor = new StreamGobbler(errBuffer, errStream);
+        StreamProcessExtractor stdOutProcessor = new StreamProcessExtractor(outBuffer, outStream, outputCallback, callback);
+        StreamGobbler stdErrProcessor = new StreamGobbler(errBuffer, errStream, outputCallback, true);
 
         try {
             stdOutProcessor.join();
