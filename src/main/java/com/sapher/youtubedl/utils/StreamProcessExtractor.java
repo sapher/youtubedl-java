@@ -33,10 +33,12 @@ public class StreamProcessExtractor extends Thread {
 
     public void run() {
         try {
-            if(callback != null){
-                String tmp;
+            String tmp;
 
-                while((tmp = streamReader.readLine()) != null){
+            while((tmp = streamReader.readLine()) != null){
+                buffer.append(tmp);
+                
+                if(callback != null){
                     processOutputLine(tmp);
                 }
             }

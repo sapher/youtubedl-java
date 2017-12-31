@@ -111,6 +111,14 @@ public class YoutubeDL {
         return youtubeDLResponse;
     }
 
+    public static void main(String args[]){
+        try {
+            System.out.println(YoutubeDL.getVersion());
+        } catch (YoutubeDLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Get youtube-dl executable version
