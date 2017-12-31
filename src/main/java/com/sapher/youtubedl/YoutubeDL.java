@@ -111,7 +111,6 @@ public class YoutubeDL {
         return youtubeDLResponse;
     }
 
-
     /**
      * Get youtube-dl executable version
      * @return version string
