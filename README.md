@@ -61,7 +61,7 @@ dependencies {
 <dependency>
 	<groupId>com.github.sapher</groupId>
 	<artifactId>youtubedl-java</artifactId>
-	<version>1.1</version>
+	<version>1.+</version>
 </dependency>
 ```
 
