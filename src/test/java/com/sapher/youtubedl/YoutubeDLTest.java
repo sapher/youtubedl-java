@@ -68,6 +68,28 @@ public class YoutubeDLTest {
         VideoInfo videoInfo = YoutubeDL.getVideoInfo(VIDEO_URL);
         Assert.assertNotNull(videoInfo);
     }
+    
+    @Test
+    public void testGetVideoInfoInDetails() throws YoutubeDLException {
+        VideoInfo videoInfo = YoutubeDL.getVideoInfo(VIDEO_URL);
+        Assert.assertNotNull(videoInfo);
+        //Let's check we can access key elements from video info
+        Assert.assertNotNull(videoInfo.getId());
+        Assert.assertNotNull(videoInfo.getTitle());
+        Assert.assertNotNull(videoInfo.getFulltitle());
+        Assert.assertNotNull(videoInfo.getDescription());
+        Assert.assertNotNull(videoInfo.getThumbnail());
+        Assert.assertNotNull(videoInfo.getUploaderId());
+        Assert.assertNotNull(videoInfo.getUploader());
+        Assert.assertNotNull(videoInfo.getUploadDate());
+        Assert.assertNotNull(videoInfo.getDuration());
+        Assert.assertNotNull(videoInfo.getViewCount());
+        Assert.assertNotNull(videoInfo.getLikeCount());
+        Assert.assertNotNull(videoInfo.getDislikeCount());
+        Assert.assertNotNull(videoInfo.getAverageRating());
+        
+        
+    }
 
     @Test
     public void testGetFormats() throws YoutubeDLException {
