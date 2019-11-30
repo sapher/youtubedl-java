@@ -35,6 +35,47 @@ public class VideoInfo {
     @JsonProperty("uploader_id")
     public String uploaderId;
     public String uploader;
+    
+    @JsonProperty("channel_url")
+    public String channelUrl;
+    
+    @JsonProperty("channel_id")
+    public String channelId;
+    
+    @JsonProperty("uploader_url")
+    public String uploaderUrl;
+    
+    public String track;
+    public String playlist;
+    @JsonProperty("playlist_index")
+    public String playlistIndex;
+    @JsonProperty("episode_number")
+    public String episodeNumber;
+    @JsonProperty("season_number")
+    public String seasonNumber;
+    
+    @JsonProperty("is_live")
+    public String isLive;
+    public String series;
+    
+    @JsonProperty("release_date")
+    public String releaseDate;
+    @JsonProperty("release_year")
+    public String releaseYear;
+    
+    
+    @JsonProperty("scan_date")
+    public String scanDate;
+    
+    public String creator;
+    public String artist;
+    @JsonProperty("alt_title")
+    public String altTitle;
+    @JsonProperty("extractor_key")
+    public String extractorKey;
+    public String chapters;
+    public String album;
+    
 
     @JsonProperty("player_url")
     public String playerUrl;
@@ -102,16 +143,23 @@ public class VideoInfo {
 	}
 	@Override
 	public String toString() {
-		return "VideoInfo [id=" + id + ", fulltitle=" + fulltitle + ", title=" + title + ", uploadDate=" + uploadDate
-				+ ", displayId=" + displayId + ", duration=" + duration + ", description=" + description
-				+ ", thumbnail=" + thumbnail + ", license=" + license + ", viewCount=" + viewCount + ", likeCount="
-				+ likeCount + ", dislikeCount=" + dislikeCount + ", repostCount=" + repostCount + ", averageRating="
-				+ averageRating + ", uploaderId=" + uploaderId + ", uploader=" + uploader + ", playerUrl=" + playerUrl
-				+ ", webpageUrl=" + webpageUrl + ", webpageUrlBasename=" + webpageUrlBasename + ", resolution="
-				+ resolution + ", width=" + width + ", height=" + height + ", format=" + format + ", ext=" + ext
-				+ ", httpHeader=" + httpHeader + ", categories=" + categories + ", tags=" + tags + ", formats="
-				+ formats + ", thumbnails=" + thumbnails + "]";
+		return "VideoInfo [id=" + id + "\n, fulltitle=" + fulltitle + "\n, title=" + title + "\n, uploadDate=" + uploadDate
+				+ "\n, displayId=" + displayId + "\n, duration=" + duration + "\n, description=" + description
+				+ "\n, thumbnail=" + thumbnail + "\n, license=" + license + "\n, viewCount=" + viewCount + "\n, likeCount="
+				+ likeCount + "\n, dislikeCount=" + dislikeCount + "\n, repostCount=" + repostCount + "\n, averageRating="
+				+ averageRating + "\n, uploaderId=" + uploaderId + "\n, uploader=" + uploader + "\n, channelUrl=" + channelUrl
+				+ "\n, channelId=" + channelId + "\n, uploaderUrl=" + uploaderUrl + "\n, track=" + track + "\n, playlist="
+				+ playlist + "\n, playlistIndex=" + playlistIndex + "\n, episodeNumber=" + episodeNumber + "\n, seasonNumber="
+				+ seasonNumber + "\n, isLive=" + isLive + "\n, series=" + series + "\n, releaseDate=" + releaseDate
+				+ "\n, releaseYear=" + releaseYear + "\n, scanDate=" + scanDate + "\n, creator=" + creator + "\n, artist="
+				+ artist + "\n, altTitle=" + altTitle + "\n, extractorKey=" + extractorKey + "\n, chapters=" + chapters
+				+ "\n, album=" + album + "\n, playerUrl=" + playerUrl + "\n, webpageUrl=" + webpageUrl
+				+ "\n, webpageUrlBasename=" + webpageUrlBasename + "\n, resolution=" + resolution + "\n, width=" + width
+				+ "\n, height=" + height + "\n, format=" + format + "\n, ext=" + ext + "\n, httpHeader=" + httpHeader
+				+ "\n, categories=" + categories + "\n, tags=" + tags + "\n, formats=" + formats + "\n, thumbnails="
+				+ thumbnails + "]";
 	}
+	
 	
 	
 }

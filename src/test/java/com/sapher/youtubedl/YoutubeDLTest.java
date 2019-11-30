@@ -87,6 +87,8 @@ public class YoutubeDLTest {
         Assert.assertNotNull(videoInfo.getLikeCount());
         Assert.assertNotNull(videoInfo.getDislikeCount());
         Assert.assertNotNull(videoInfo.getAverageRating());
+        //Let's print the whole object
+        System.out.println("videoInfo:"+videoInfo.toString());
         
         
     }
