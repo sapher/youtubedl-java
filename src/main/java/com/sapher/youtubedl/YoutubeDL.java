@@ -26,7 +26,7 @@ public class YoutubeDL {
     /**
      * Youtube-dl executable name
      */
-    protected static String executablePath = "youtube-dl";
+    protected static String executablePath = "proxychains youtube-dl";
 
     /**
      * Append executable name to command
@@ -140,9 +140,13 @@ public class YoutubeDL {
         // Parse result
         ObjectMapper objectMapper = new ObjectMapper();
         VideoInfo videoInfo;
+        
+        //Proxychains : remove proxychains header ex: "ProxyChains-3.1 (http://proxychains.sf.net)\n"
+        String outputWihtoutHeader = response.getOut();
+        outputWihtoutHeader = outputWihtoutHeader.substring(outputWihtoutHeader.indexOf("{"));
 
         try {
-            videoInfo = objectMapper.readValue(response.getOut(), VideoInfo.class);
+            videoInfo = objectMapper.readValue(outputWihtoutHeader, VideoInfo.class);
         } catch (IOException e) {
             throw new YoutubeDLException("Unable to parse video information: " + e.getMessage());
         }
