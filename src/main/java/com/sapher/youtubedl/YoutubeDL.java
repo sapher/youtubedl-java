@@ -141,18 +141,8 @@ public class YoutubeDL {
         ObjectMapper objectMapper = new ObjectMapper();
         VideoInfo videoInfo;
         
-        String output;
-        if(executablePath.contains("proxychains")) {
-        	//Proxychains : remove proxychains header ex: "ProxyChains-3.1 (http://proxychains.sf.net)\n"
-            output = response.getOut();
-            output = output.substring(output.indexOf("{"));
-        }else {
-        	output = response.getOut();
-        }
-        
-
         try {
-            videoInfo = objectMapper.readValue(output, VideoInfo.class);
+            videoInfo = objectMapper.readValue(response.getOut(), VideoInfo.class);
         } catch (IOException e) {
             throw new YoutubeDLException("Unable to parse video information: " + e.getMessage());
         }

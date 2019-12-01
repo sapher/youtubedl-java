@@ -95,10 +95,7 @@ public class YoutubeDLTest {
     
     @Test
     public void testGetVideoInfoInDetailsWithProxychains() throws YoutubeDLException {
-        YoutubeDL youtubeDL = new YoutubeDL();
-        youtubeDL.setExecutablePath("proxychains youtube-dl");
-        
-    	VideoInfo videoInfo = youtubeDL.getVideoInfo(VIDEO_URL);
+        VideoInfo videoInfo = YoutubeDLProchains.getVideoInfo(VIDEO_URL);
         Assert.assertNotNull(videoInfo);
         //Let's check we can access key elements from video info
         Assert.assertNotNull(videoInfo.getId());
