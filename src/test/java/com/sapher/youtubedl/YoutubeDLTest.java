@@ -92,6 +92,33 @@ public class YoutubeDLTest {
         
         
     }
+    
+    @Test
+    public void testGetVideoInfoInDetailsWithProxychains() throws YoutubeDLException {
+        YoutubeDL youtubeDL = new YoutubeDL();
+        youtubeDL.setExecutablePath("proxychains youtube-dl");
+        
+    	VideoInfo videoInfo = youtubeDL.getVideoInfo(VIDEO_URL);
+        Assert.assertNotNull(videoInfo);
+        //Let's check we can access key elements from video info
+        Assert.assertNotNull(videoInfo.getId());
+        Assert.assertNotNull(videoInfo.getTitle());
+        Assert.assertNotNull(videoInfo.getFulltitle());
+        Assert.assertNotNull(videoInfo.getDescription());
+        Assert.assertNotNull(videoInfo.getThumbnail());
+        Assert.assertNotNull(videoInfo.getUploaderId());
+        Assert.assertNotNull(videoInfo.getUploader());
+        Assert.assertNotNull(videoInfo.getUploadDate());
+        Assert.assertNotNull(videoInfo.getDuration());
+        Assert.assertNotNull(videoInfo.getViewCount());
+        Assert.assertNotNull(videoInfo.getLikeCount());
+        Assert.assertNotNull(videoInfo.getDislikeCount());
+        Assert.assertNotNull(videoInfo.getAverageRating());
+        //Let's print the whole object
+        System.out.println("videoInfo:"+videoInfo.toString());
+        
+        
+    }
 
     @Test
     public void testGetFormats() throws YoutubeDLException {
