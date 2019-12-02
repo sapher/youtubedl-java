@@ -140,7 +140,7 @@ public class YoutubeDL {
         // Parse result
         ObjectMapper objectMapper = new ObjectMapper();
         VideoInfo videoInfo;
-
+        
         try {
             videoInfo = objectMapper.readValue(response.getOut(), VideoInfo.class);
         } catch (IOException e) {
