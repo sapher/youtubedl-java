@@ -42,6 +42,29 @@ dependencies {
 }
 ```
 
+### Maven
+
+*Step 1 :* Add jitpack repository to your pom.xml file
+
+```
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+```
+
+*Step 2:* Add the dependency
+
+```
+<dependency>
+	<groupId>com.github.sapher</groupId>
+	<artifactId>youtubedl-java</artifactId>
+	<version>1.+</version>
+</dependency>
+```
+
 ## Make request
 
 ```java

@@ -140,9 +140,10 @@ public class YoutubeDL {
         // Parse result
         ObjectMapper objectMapper = new ObjectMapper();
         VideoInfo videoInfo;
-
+        
         try {
             videoInfo = objectMapper.readValue(response.getOut(), VideoInfo.class);
+            System.out.println("videoInfo="+videoInfo.toString());
         } catch (IOException e) {
             throw new YoutubeDLException("Unable to parse video information: " + e.getMessage());
         }

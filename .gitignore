@@ -20,3 +20,8 @@ target/
 # Gradle
 .gradle
 gradle
+
+# eclipse
+.settings/
+.classpath
+.project
