@@ -12,7 +12,8 @@ import java.util.List;
 public class YoutubeDLProxychainsTest{
 
     private final static String DIRECTORY = System.getProperty("java.io.tmpdir");
-    private final static String VIDEO_URL = "https://www.youtube.com/watch?v=nMfPqeZjc2c";
+    //private final static String VIDEO_URL = "https://www.youtube.com/watch?v=nMfPqeZjc2c";
+    private final static String VIDEO_URL = "https://www.youtube.com/watch?v=x3hGMgd2X14";
     private final static String NONE_EXISTENT_VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcZ";
 
     /**@Test
