@@ -11,6 +11,8 @@ import java.util.List;
 public class YoutubeDLTest {
 
     private final static String DIRECTORY = System.getProperty("java.io.tmpdir");
+    private final static String SEARCH_QUERY = "Rick Astley - Never Gonna Give You Up";
+    private final static int SEARCH_AMOUNT = 5;
     private final static String VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     private final static String NONE_EXISTENT_VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcZ";
 
@@ -61,6 +63,12 @@ public class YoutubeDLTest {
         YoutubeDLResponse response = YoutubeDL.execute(request);
 
         Assert.assertEquals(DIRECTORY, response.getDirectory());
+    }
+    
+    @Test
+    public void testSearch() throws YoutubeDLException {
+    	List<VideoInfo> videos = YoutubeDL.search(SEARCH_QUERY, SEARCH_AMOUNT);
+    	Assert.assertFalse(videos.isEmpty());
     }
 
     @Test
