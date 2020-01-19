@@ -10,6 +10,7 @@ import com.sapher.youtubedl.utils.StreamProcessExtractor;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -121,6 +122,41 @@ public class YoutubeDL {
         YoutubeDLRequest request = new YoutubeDLRequest();
         request.setOption("version");
         return YoutubeDL.execute(request).getOut();
+    }
+    
+    /**
+     * List the first {@amount} of video's found by searching on YouTube
+     * @param searchQuery Search query
+     * @param amount Amount of videos to search for
+     * @return List of videos
+     * @throws YoutubeDLException
+     */
+    public static List<VideoInfo> search(String searchQuery, int amount) throws YoutubeDLException {
+    	
+    	// Build query
+    	String query = "ytsearch" + amount + ":\"" + searchQuery + "\"";
+    	
+    	// Build request
+    	YoutubeDLRequest request = new YoutubeDLRequest(query);
+    	request.setOption("dump-json");
+    	request.setOption("no-playlist");
+    	YoutubeDLResponse response = YoutubeDL.execute(request);
+    	
+    	// Parse result
+    	String[] out = response.getOut().split("\n");
+    	ObjectMapper objectMapper = new ObjectMapper();
+    	List<VideoInfo> videos = new ArrayList<VideoInfo>();
+    	
+    	try {
+			for (int i = 0; i < out.length; i++) {
+				VideoInfo video = objectMapper.readValue(out[i], VideoInfo.class);
+				videos.add(video);
+			}
+		} catch (IOException e) {
+			throw new YoutubeDLException("Unable to parse video information: " + e.getMessage());
+		}
+    	
+    	return videos;
     }
 
     /**
