@@ -76,4 +76,4 @@ YoutubeDLResponse response = YoutubeDL.execute(request, new DownloadProgressCall
       });
 ```
 # Links
-* [Youtube-dl documentation](https://github.com/sapher/youtubedl-java)
+* [Youtube-dl documentation](https://github.com/ytdl-org/youtube-dl)
