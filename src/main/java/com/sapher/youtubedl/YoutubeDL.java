@@ -199,8 +199,13 @@ public class YoutubeDL {
         return EXECUTABLE_PATH;
     }
 
-    public static void setEnvironmentConsumer(Consumer<Map<String, String>> environmentConsumer) {
-        ENVIRONMENT_CONSUMER = environmentConsumer;
+    /**
+     * Set environment variables parser
+     *
+     * @param environment consumer to set env variables
+     */
+    public static void setEnvironmentConsumer(Consumer<Map<String, String>> environment) {
+        ENVIRONMENT_CONSUMER = environment;
     }
 
     /**
