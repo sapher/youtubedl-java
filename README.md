@@ -45,8 +45,17 @@ dependencies {
 ## Make request
 
 ```java
+// Change environment variables
+YoutubeDL.setEnvironmentConsumer(environment -> {
+  //TODO: manage your environment variables here
+});
+
+// Change default youtube-dl command
+YoutubeDL.setExecutablePath("cmd.exe", "/c", "youtube-dl"); //example with windows  
+
 // Video url to download
-String videoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+String videoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; //to download youtube video url
+videoUrl = "ytsearch1:fantastic music song"; //to search by a video and download it
 
 // Destination directory
 String directory = System.getProperty("user.home");
