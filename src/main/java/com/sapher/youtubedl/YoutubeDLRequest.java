@@ -1,6 +1,7 @@
 package com.sapher.youtubedl;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * YoutubeDL request
@@ -20,7 +21,7 @@ public class YoutubeDLRequest {
     /**
      * List of executable options
      */
-    private Map<String, String> options = new HashMap<String, String>();
+    private final Map<String, String> options = new HashMap<>();
 
     public String getDirectory() {
         return directory;
@@ -42,37 +43,41 @@ public class YoutubeDLRequest {
         return options;
     }
 
-    public void setOption(String key) {
+    public YoutubeDLRequest setOption(String key) {
         options.put(key, null);
+        return this;
     }
 
-    public void setOption(String key, String value) {
+    public YoutubeDLRequest setOption(String key, String value) {
         options.put(key, value);
+        return this;
     }
 
-    public void setOption(String key, int value) {
+    public YoutubeDLRequest setOption(String key, int value) {
         options.put(key, String.valueOf(value));
+        return this;
     }
 
     /**
-     * Constructor
+     * Empty request constructor
      */
     public YoutubeDLRequest() {
-
     }
 
     /**
-     * Construct a request with a videoUrl
-     * @param url
+     * Construct a request with a video url
+     *
+     * @param url youtube video url
      */
     public YoutubeDLRequest(String url) {
-        this.url = url;
+        this(url, null);
     }
 
     /**
      * Construct a request with a videoUrl and working directory
-     * @param url
-     * @param directory
+     *
+     * @param url youtube video url
+     * @param directory destination output video download and dump data information
      */
     public YoutubeDLRequest(String url, String directory) {
         this.url = url;
@@ -81,32 +86,28 @@ public class YoutubeDLRequest {
 
     /**
      * Transform options to a string that the executable will execute
+     *
      * @return Command string
      */
-    protected String buildOptions() {
-
-        StringBuilder builder = new StringBuilder();
-
-        // Set Url
-        if(url != null)
-            builder.append(url + " ");
-
-        // Build options strings
-        Iterator it = options.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry option = (Map.Entry) it.next();
-
-            String name = (String) option.getKey();
-            String value = (String) option.getValue();
-
-            if(value == null) value = "";
-
-            String optionFormatted = String.format("--%s %s", name, value).trim();
-            builder.append(optionFormatted + " ");
-
-            it.remove();
+    protected String[] buildCommandLine(String... command) {
+        final List<String> optionsCommandList = new LinkedList<>();
+        if(command.length > 0) {
+            optionsCommandList.addAll(Arrays.asList(command));
         }
 
-        return builder.toString().trim();
+        for (Entry<String, String> entry : options.entrySet()) {
+            optionsCommandList.add("--".concat(entry.getKey().trim()));
+            String value = entry.getValue();
+            if (value != null) {
+                optionsCommandList.add(value.trim());
+            }
+        }
+
+        // Set url if it's present
+        if (url != null) {
+            optionsCommandList.add(url);
+        }
+
+        return optionsCommandList.toArray(new String[0]);
     }
 }

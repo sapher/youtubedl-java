@@ -11,7 +11,7 @@ public class YoutubeDLRequestTest {
         YoutubeDLRequest request = new YoutubeDLRequest();
         request.setOption("help");
 
-        Assert.assertEquals("--help", request.buildOptions());
+        Assert.assertEquals("--help", String.join(" ", request.buildCommandLine()));
     }
 
     @Test
@@ -20,7 +20,7 @@ public class YoutubeDLRequestTest {
         YoutubeDLRequest request = new YoutubeDLRequest();
         request.setOption("password", "1234");
 
-        Assert.assertEquals("--password 1234", request.buildOptions());
+        Assert.assertEquals("--password 1234", String.join(" ", request.buildCommandLine()));
     }
 
     @Test
@@ -30,6 +30,6 @@ public class YoutubeDLRequestTest {
         request.setOption("password", "1234");
         request.setOption("username", "1234");
 
-        Assert.assertEquals("--password 1234 --username 1234", request.buildOptions());
+        Assert.assertEquals("--password 1234 --username 1234", String.join(" ", request.buildCommandLine()));
     }
 }
