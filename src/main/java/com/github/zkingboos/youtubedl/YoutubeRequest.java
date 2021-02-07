@@ -46,6 +46,7 @@ public class YoutubeRequest extends YoutubeOption {
     /**
      * Transform options to a string that the executable will execute
      *
+     * @param command executable command
      * @return Command string
      */
     protected String[] buildCommandLine(String... command) {
