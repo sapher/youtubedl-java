@@ -1,4 +1,4 @@
-package com.sapher.youtubedl.mapper;
+package com.github.zkingboos.youtubedl.entry.video;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

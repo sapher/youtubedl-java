@@ -1,10 +1,20 @@
-package com.sapher.youtubedl.mapper;
+package com.github.zkingboos.youtubedl.entry.video;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.zkingboos.youtubedl.YoutubeRequest;
+import com.github.zkingboos.youtubedl.YoutubeResponse;
+import com.github.zkingboos.youtubedl.entry.HttpHeader;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 
+@Data
+@ToString
+@Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VideoInfo {
 
@@ -53,4 +63,9 @@ public class VideoInfo {
     private int playlistIndex;
     @JsonProperty("playlist_uploader")
     private String playlistUploader;
+
+    @JsonIgnore
+    private YoutubeRequest request;
+    @JsonIgnore
+    private YoutubeResponse response;
 }

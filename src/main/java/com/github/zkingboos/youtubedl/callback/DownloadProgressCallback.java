@@ -1,4 +1,4 @@
-package com.sapher.youtubedl;
+package com.github.zkingboos.youtubedl.callback;
 
 @FunctionalInterface
 public interface DownloadProgressCallback {

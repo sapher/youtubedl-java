@@ -1,4 +1,4 @@
-package com.sapher.youtubedl;
+package com.github.zkingboos.youtubedl;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

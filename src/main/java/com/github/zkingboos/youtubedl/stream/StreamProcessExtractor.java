@@ -1,6 +1,6 @@
-package com.sapher.youtubedl.utils;
+package com.github.zkingboos.youtubedl.stream;
 
-import com.sapher.youtubedl.DownloadProgressCallback;
+import com.github.zkingboos.youtubedl.callback.DownloadProgressCallback;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,12 +9,7 @@ import java.util.regex.Pattern;
 
 public class StreamProcessExtractor extends Thread {
 
-    private final static Pattern PATTERN;
-
-    static {
-        PATTERN = Pattern.compile("\\[download]\\s+(?<percent>\\d+\\.\\d)% .* ETA (?<minutes>\\d+):(?<seconds>\\d+)");
-    }
-
+    private final static Pattern PATTERN = Pattern.compile("\\[download]\\s+(?<percent>\\d+\\.\\d)% .* ETA (?<minutes>\\d+):(?<seconds>\\d+)");
     private static final String GROUP_PERCENT = "percent";
     private static final String GROUP_MINUTES = "minutes";
     private static final String GROUP_SECONDS = "seconds";
@@ -49,12 +44,11 @@ public class StreamProcessExtractor extends Thread {
     }
 
     private void processOutputLine(String line) {
-        Matcher m = PATTERN.matcher(line);
-        if (m.matches()) {
-            float progress = Float.parseFloat(m.group(GROUP_PERCENT));
-            long eta = convertToSeconds(m.group(GROUP_MINUTES), m.group(GROUP_SECONDS));
-            callback.onProgressUpdate(progress, eta);
-        }
+        final Matcher matcher = PATTERN.matcher(line);
+        if (!matcher.matches()) return;
+        float progress = Float.parseFloat(matcher.group(GROUP_PERCENT));
+        long eta = convertToSeconds(matcher.group(GROUP_MINUTES), matcher.group(GROUP_SECONDS));
+        callback.onProgressUpdate(progress, eta);
     }
 
     private int convertToSeconds(String minutes, String seconds) {

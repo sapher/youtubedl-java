@@ -1,4 +1,4 @@
-package com.sapher.youtubedl;
+package com.github.zkingboos.youtubedl;
 
 import org.junit.Assert;
 import org.junit.Test;

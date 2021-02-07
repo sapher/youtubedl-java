@@ -1,11 +1,11 @@
-package com.sapher.youtubedl;
+package com.github.zkingboos.youtubedl;
 
 import java.util.Map;
 
 /**
  * YoutubeDL response
  */
-public class YoutubeDLResponse {
+public class YoutubeResponse {
 
     private final Map<String, String> options;
     private final String[] command;
@@ -15,7 +15,7 @@ public class YoutubeDLResponse {
     private final String directory;
     private final int elapsedTime;
 
-    public YoutubeDLResponse(String[] command, Map<String, String> options, String directory, int exitCode, int elapsedTime, String out, String err) {
+    public YoutubeResponse(String[] command, Map<String, String> options, String directory, int exitCode, int elapsedTime, String out, String err) {
         this.command = command;
         this.options = options;
         this.directory = directory;

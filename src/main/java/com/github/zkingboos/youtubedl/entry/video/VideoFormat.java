@@ -1,8 +1,14 @@
-package com.sapher.youtubedl.mapper;
+package com.github.zkingboos.youtubedl.entry.video;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
+@Data
+@ToString
+@Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VideoFormat {
 

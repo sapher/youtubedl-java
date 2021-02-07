@@ -1,5 +1,0 @@
-language: java
-
-before_install:
-    - sudo apt-get install libav-tools
-    - sudo pip install youtube-dl

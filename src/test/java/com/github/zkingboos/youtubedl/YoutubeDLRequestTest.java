@@ -1,4 +1,4 @@
-package com.sapher.youtubedl;
+package com.github.zkingboos.youtubedl;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,7 +8,7 @@ public class YoutubeDLRequestTest {
     @Test
     public void testBuildOptionStandalone() {
 
-        YoutubeDLRequest request = new YoutubeDLRequest();
+        YoutubeRequest request = new YoutubeRequest();
         request.setOption("help");
 
         Assert.assertEquals("--help", String.join(" ", request.buildCommandLine()));
@@ -17,7 +17,7 @@ public class YoutubeDLRequestTest {
     @Test
     public void testBuildOptionWithValue() {
 
-        YoutubeDLRequest request = new YoutubeDLRequest();
+        YoutubeRequest request = new YoutubeRequest();
         request.setOption("password", "1234");
 
         Assert.assertEquals("--password 1234", String.join(" ", request.buildCommandLine()));
@@ -26,7 +26,7 @@ public class YoutubeDLRequestTest {
     @Test
     public void testBuildChainOptionWithValue() {
 
-        YoutubeDLRequest request = new YoutubeDLRequest();
+        YoutubeRequest request = new YoutubeRequest();
         request.setOption("password", "1234");
         request.setOption("username", "1234");
 

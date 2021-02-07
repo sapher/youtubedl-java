@@ -1,4 +1,4 @@
-package com.sapher.youtubedl.utils;
+package com.github.zkingboos.youtubedl.stream;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,11 +17,10 @@ public class StreamGobbler extends Thread {
     public void run() {
         try {
             int nextChar;
-            while((nextChar = this.stream.read()) != -1) {
+            while ((nextChar = this.stream.read()) != -1) {
                 this.buffer.append((char) nextChar);
             }
-        }
-        catch (IOException ignored) {
+        } catch (IOException ignored) {
             //ignore if throws an error
         }
     }

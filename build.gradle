@@ -1,0 +1,25 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'java'
+    id 'maven'
+}
+
+repositories {
+    mavenLocal()
+    maven { url 'https://repo.maven.apache.org/maven2/' }
+}
+
+group = 'com.github.zkingboos'
+version = '1.1.2'
+sourceCompatibility = 1.8
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.7.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

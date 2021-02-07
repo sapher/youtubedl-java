@@ -1,8 +1,9 @@
-package com.sapher.youtubedl;
+package com.github.zkingboos.youtubedl;
 
-import com.sapher.youtubedl.mapper.VideoFormat;
-import com.sapher.youtubedl.mapper.VideoInfo;
-import com.sapher.youtubedl.mapper.VideoThumbnail;
+import com.github.zkingboos.youtubedl.exception.YoutubeDLException;
+import com.github.zkingboos.youtubedl.entry.video.VideoFormat;
+import com.github.zkingboos.youtubedl.entry.video.VideoInfo;
+import com.github.zkingboos.youtubedl.entry.video.VideoThumbnail;
 import org.junit.Test;
 import org.junit.Assert;
 
@@ -30,9 +31,9 @@ public class YoutubeDLTest {
 
         long startTime = System.nanoTime();
 
-        YoutubeDLRequest request = new YoutubeDLRequest();
+        YoutubeRequest request = new YoutubeRequest();
         request.setOption("version");
-        YoutubeDLResponse response = YoutubeDL.execute(request);
+        YoutubeResponse response = YoutubeDL.execute(request);
 
         int elapsedTime = (int) (System.nanoTime() - startTime);
 
@@ -43,11 +44,11 @@ public class YoutubeDLTest {
     @Test
     public void testSimulateDownload() throws YoutubeDLException {
 
-        YoutubeDLRequest request = new YoutubeDLRequest();
+        YoutubeRequest request = new YoutubeRequest();
         request.setUrl(VIDEO_URL);
         request.setOption("simulate");
 
-        YoutubeDLResponse response = YoutubeDL.execute(request);
+        YoutubeResponse response = YoutubeDL.execute(request);
 
         Assert.assertEquals("youtube-dl " + VIDEO_URL + " --simulate", response.getCommand());
     }
@@ -55,10 +56,10 @@ public class YoutubeDLTest {
     @Test
     public void testDirectory() throws YoutubeDLException {
 
-        YoutubeDLRequest request = new YoutubeDLRequest(VIDEO_URL, DIRECTORY);
+        YoutubeRequest request = new YoutubeRequest(VIDEO_URL, DIRECTORY);
         request.setOption("simulate");
 
-        YoutubeDLResponse response = YoutubeDL.execute(request);
+        YoutubeResponse response = YoutubeDL.execute(request);
 
         Assert.assertEquals(DIRECTORY, response.getDirectory());
     }

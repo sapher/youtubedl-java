@@ -1,4 +1,4 @@
-package com.sapher.youtubedl;
+package com.github.zkingboos.youtubedl.exception;
 
 /**
  * YoutubeDL Exception
@@ -12,14 +12,20 @@ public class YoutubeDLException extends Exception {
 
     /**
      * Construct YoutubeDLException with a message
+     *
      * @param message exception message error
      */
     public YoutubeDLException(String message) {
         this.message = message;
     }
 
+    public YoutubeDLException(String message, Object... objects) {
+        this(String.format(message, objects));
+    }
+
     /**
      * Construct YoutubeDLException from another exception
+     *
      * @param e Any exception
      */
     public YoutubeDLException(Exception e) {
@@ -28,6 +34,7 @@ public class YoutubeDLException extends Exception {
 
     /**
      * Get exception message
+     *
      * @return exception message
      */
     @Override
